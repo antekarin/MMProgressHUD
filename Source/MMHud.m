@@ -290,7 +290,7 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
     
     self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
     self.layer.shadowColor  = blackColor;
-    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowOpacity = 0.0;
     self.layer.shadowRadius = 15.0f;
     self.layer.cornerRadius = 10.0f;
     
@@ -387,7 +387,7 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
     self.titleLabel.frame = self.titleFrame;
     self.statusLabel.frame = self.statusFrame;
     self.progressViewContainer.frame = self.contentAreaFrame;
-    
+    self.backgroundColor = nil;
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                           cornerRadius:self.layer.cornerRadius];
     self.layer.shadowPath = shadowPath.CGPath;
