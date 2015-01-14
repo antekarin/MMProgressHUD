@@ -43,7 +43,12 @@
 #pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
 - (UIWindow *)oldWindow {
     if (_oldWindow == nil) {
-        self.oldWindow = [[[UIApplication sharedApplication] windows] firstObject];
+        if ([[[UIApplication sharedApplication] windows] count]) {
+            self.oldWindow = [[UIApplication sharedApplication] windows][0];
+        }
+        else {
+            self.oldWindow = nil;
+        }
     }
     
     MMHudLog(@"Old Window: %@", _oldWindow);
@@ -55,14 +60,7 @@
 - (void)setRootViewController:(UIViewController *)rootViewController {
     [super setRootViewController:rootViewController];
     
-    NSString *reqSysVer = @"8.0";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    BOOL usesWindowTransformRotation = ([currSysVer compare:reqSysVer
-                                                    options:NSNumericSearch] != NSOrderedAscending);
-    
-    if (usesWindowTransformRotation == NO) {
-        [self orientRootViewControllerForOrientation:rootViewController.interfaceOrientation];
-    }
+    [self orientRootViewControllerForOrientation:rootViewController.interfaceOrientation];
 }
 
 - (void)orientRootViewControllerForOrientation:(UIInterfaceOrientation)interfaceOrientation {
